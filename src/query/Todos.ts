@@ -39,7 +39,7 @@ export const useEditTodo = (): UseMutationResult<AxiosResponse<TodoDTO>, AxiosEr
 
   return useMutation({
     mutationKey: ['addTodo'],
-    mutationFn: async (todo: TodoDTO) => await client.put<TodoDTO, AxiosResponse<TodoDTO>, TodoDTO>('/Todo', todo),
+    mutationFn: async (todo: TodoDTO) => await client.put<TodoDTO, AxiosResponse<TodoDTO>, TodoDTO>(`/Todo/${todo.id}`, todo),
     onSuccess: async () => {
       await queryClient.refetchQueries({
         queryKey: ['todos']
