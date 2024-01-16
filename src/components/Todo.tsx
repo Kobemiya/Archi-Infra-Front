@@ -13,7 +13,7 @@ import { useEditTodo } from '../query/Todos';
 // Define the TodoDTO interface
 interface TodoDTO {
   id: number;
-  title: string;
+  name: string;
   description: string;
 }
 
@@ -24,9 +24,9 @@ const TodoContainer = styled(Box)`
   margin-bottom: 8px;
 `;
 
-const Todo: React.FC<TodoDTO> = ({ id, title, description }) => {
+const Todo: React.FC<TodoDTO> = ({ id, name, description }) => {
   const [isEditing, setEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedName, setEditedName] = useState(name);
   const [editedDescription, setEditedDescription] = useState(description);
   const { mutateAsync: editTodo } = useEditTodo()
 
@@ -36,8 +36,8 @@ const Todo: React.FC<TodoDTO> = ({ id, title, description }) => {
 
   const handleSaveEdit = () => {
     setEditing(false);
-    // You can implement saving the edited title and description here
-    editTodo({ id, title: editedTitle, description: editedDescription })
+    // You can implement saving the edited name and description here
+    editTodo({ id, name: editedName, description: editedDescription })
   };
 
   return (
@@ -45,12 +45,12 @@ const Todo: React.FC<TodoDTO> = ({ id, title, description }) => {
       <Text fontSize="xl" fontWeight="bold">
         {isEditing ? (
           <Input
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
+            value={editedName}
+            onChange={(e) => setEditedName(e.target.value)}
             onBlur={handleSaveEdit}
           />
         ) : (
-          title
+          name
         )}
         <IconButton
           aria-label="Edit"

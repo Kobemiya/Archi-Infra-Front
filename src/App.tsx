@@ -14,16 +14,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Sample data for testing
 // const initialTodos: TodoDTO[] = [
-//   { id: 1, title: 'Task 1', description: 'Description for Task 1' },
-//   { id: 2, title: 'Task 2', description: 'Description for Task 2' },
+//   { id: 1, name: 'Task 1', description: 'Description for Task 1' },
+//   { id: 2, name: 'Task 2', description: 'Description for Task 2' },
 // ];
 
 const Home = (): JSX.Element => {
-  const { data: todos } = useGetTodos({ queryKey: ['todos'] }) 
+  const { data: todos } = useGetTodos({ queryKey: ['todos'] })
   const { mutateAsync: postTodo } = useAddTodo()
   const [newTodo, setNewTodo] = useState<TodoDTO>({
     id: 0,
-    title: '',
+    name: '',
     description: '',
   });
 
@@ -41,10 +41,10 @@ const Home = (): JSX.Element => {
         <Text fontSize="2xl">Todo List</Text>
         <VStack align="stretch" spacing={2}>
           <Input
-            placeholder="Title"
-            value={newTodo.title}
+            placeholder="Name"
+            value={newTodo.name}
             onChange={(e) =>
-              setNewTodo({ ...newTodo, title: e.target.value })
+              setNewTodo({ ...newTodo, name: e.target.value })
             }
           />
           <Input

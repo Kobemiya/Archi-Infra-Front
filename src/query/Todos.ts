@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from "axios"
 
 export interface TodoDTO {
   id: number
-  title: string
+  name: string
   description: string
 }
 
@@ -12,7 +12,7 @@ export const useGetTodos = (options: UndefinedInitialDataOptions<AxiosResponse<T
   const client = useClient()
 
   return useQuery({
-    queryFn: async () => await client.get<TodoDTO[]>('/todos'),
+    queryFn: async () => await client.get<TodoDTO[]>('/Todo'),
     select: ({ data }) => data,
     ...options
   })
@@ -24,7 +24,7 @@ export const useAddTodo = (): UseMutationResult<AxiosResponse<TodoDTO>, AxiosErr
 
   return useMutation({
     mutationKey: ['addTodo'],
-    mutationFn: async (todo: TodoDTO) => await client.post<TodoDTO, AxiosResponse<TodoDTO>, TodoDTO>('/todo', todo),
+    mutationFn: async (todo: TodoDTO) => await client.post<TodoDTO, AxiosResponse<TodoDTO>, TodoDTO>('/Todo', todo),
     onSuccess: async () => {
       await queryClient.refetchQueries({
         queryKey: ['todos']
@@ -39,7 +39,7 @@ export const useEditTodo = (): UseMutationResult<AxiosResponse<TodoDTO>, AxiosEr
 
   return useMutation({
     mutationKey: ['addTodo'],
-    mutationFn: async (todo: TodoDTO) => await client.put<TodoDTO, AxiosResponse<TodoDTO>, TodoDTO>('/todo', todo),
+    mutationFn: async (todo: TodoDTO) => await client.put<TodoDTO, AxiosResponse<TodoDTO>, TodoDTO>('/Todo', todo),
     onSuccess: async () => {
       await queryClient.refetchQueries({
         queryKey: ['todos']
@@ -54,7 +54,7 @@ export const useDeleteTodo = (): UseMutationResult<AxiosResponse, AxiosError, To
 
   return useMutation({
     mutationKey: ['addTodo'],
-    mutationFn: async (todo: TodoDTO) => await client.delete(`/todo/${todo.id}`),
+    mutationFn: async (todo: TodoDTO) => await client.delete(`/Todo/${todo.id}`),
     onSuccess: async () => {
       await queryClient.refetchQueries({
         queryKey: ['todos']
